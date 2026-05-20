@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { authClient } from '../auth';
 
-function AuthForm({ setSession, setUser, setJwtToken }) {
+function AuthForm({ setSession, setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
@@ -25,44 +25,7 @@ function AuthForm({ setSession, setUser, setJwtToken }) {
     if (sessionResult.data?.session && sessionResult.data?.user) {
       setSession(sessionResult.data.session);
       setUser(sessionResult.data.user);
-
-      if (isSignUp) {
-        try {
-          const tokenResult = await authClient.token();
-          const jwtToken =
-            tokenResult.data?.session?.token || tokenResult.data?.token;
-
-          const backendResponse = await fetch('http://localhost:3000/users', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${jwtToken}`,
-            },
-          });
-
-          if (!backendResponse.ok) {
-            console.error('Gagal menyimpan ID user ke backend lokal');
-          } else {
-            console.log('User ID berhasil disimpan di backend lokal!');
-          }
-        } catch (syncError) {
-          console.error(
-            'Terjadi masalah jaringan saat menghubungi backend:',
-            syncError,
-          );
-        }
-      }
     }
-
-    // Kode untuk testing development
-    // const tokenResult = await authClient.token();
-    // if (tokenResult.data) {
-    //   setJwtToken(tokenResult.data.session.token);
-    //   console.log(
-    //     'Salin JWT Token ini untuk di Postman:',
-    //     tokenResult.data.session.token,
-    //   );
-    // }
   };
 
   return (

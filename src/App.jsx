@@ -9,9 +9,6 @@ function App() {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
 
-  // Kode untuk testing development
-  // const [jwtToken, setJwtToken] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,16 +18,6 @@ function App() {
       if (result.data?.session && result.data?.user) {
         setSession(result.data.session);
         setUser(result.data.user);
-
-        // Kode untuk testing development
-        // const tokenResult = await authClient.token();
-        // if (tokenResult.data) {
-        //   setJwtToken(tokenResult.data.session.token);
-        //   console.log(
-        //     'Salin JWT Token ini untuk di Postman:',
-        //     tokenResult.data.session.token,
-        //   );
-        // }
       }
       setLoading(false);
     };
@@ -42,23 +29,11 @@ function App() {
 
   if (session && user) {
     return (
-      <UserProfile
-        user={user}
-        setSession={setSession}
-        setUser={setUser}
-        // jwtToken={jwtToken}
-        // setJwtToken={setJwtToken}
-      />
+      <UserProfile user={user} setSession={setSession} setUser={setUser} />
     );
   }
 
-  return (
-    <AuthForm
-      setSession={setSession}
-      setUser={setUser}
-      // setJwtToken={setJwtToken}
-    />
-  );
+  return <AuthForm setSession={setSession} setUser={setUser} />;
 }
 
 export default App;
