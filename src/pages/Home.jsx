@@ -48,14 +48,12 @@ function Home() {
   const currentIngredients =
     ingredientsByCategory[activeCategory] || ingredientsByCategory.Veggies;
 
-  const addToBasket = (item) => {
-    if (!basket.includes(item)) {
-      setBasket([...basket, item]);
-    }
+  const addToBasket = (newItem) => {
+    setBasket((prev) => Array.from(new Set([...prev, newItem])));
   };
 
   const removeFromBasket = (index) => {
-    setBasket(basket.filter((_, i) => i !== index));
+    setBasket((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleCategoryClick = (categoryName) => {
