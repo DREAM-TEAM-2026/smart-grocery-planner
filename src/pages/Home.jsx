@@ -93,7 +93,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16 md:pt-20">
-      <div className="max-w-md md:max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8 pb-20 md:pb-8">
+      <div className="max-w-md md:max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 pb-20">
         <div className="mb-4 md:mb-6">
           <h1 className="text-xl md:text-2xl font-bold text-gray-800">Hi, Sarah! 👋</h1>
           <p className="text-gray-500 text-sm md:text-base mt-0.5">What would you like to cook today?</p>
@@ -118,28 +118,13 @@ function Home() {
               
               <div className="md:hidden">
                 <div className="flex gap-2 mb-3">
-                  <button
-                    onClick={() => setActiveMealTab('breakfast')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${
-                      activeMealTab === 'breakfast' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
+                  <button onClick={() => setActiveMealTab('breakfast')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${activeMealTab === 'breakfast' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'}`}>
                     <FaEgg className="text-sm" /> Breakfast
                   </button>
-                  <button
-                    onClick={() => setActiveMealTab('lunch')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${
-                      activeMealTab === 'lunch' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
+                  <button onClick={() => setActiveMealTab('lunch')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${activeMealTab === 'lunch' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'}`}>
                     <FaSun className="text-sm" /> Lunch
                   </button>
-                  <button
-                    onClick={() => setActiveMealTab('dinner')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${
-                      activeMealTab === 'dinner' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
+                  <button onClick={() => setActiveMealTab('dinner')} className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${activeMealTab === 'dinner' ? 'bg-green-700 text-white' : 'bg-gray-100 text-gray-600'}`}>
                     <FaMoon className="text-sm" /> Dinner
                   </button>
                 </div>
@@ -169,13 +154,7 @@ function Home() {
               <h2 className="font-semibold text-gray-800 text-sm md:text-base mb-2 md:mb-3">Categories</h2>
               <div className="grid grid-cols-4 md:grid-cols-8 gap-2 md:gap-3">
                 {categories.map((cat) => (
-                  <div 
-                    key={cat.name} 
-                    onClick={() => handleCategoryClick(cat.name)}
-                    className={`bg-white rounded-lg p-2 text-center shadow-sm border cursor-pointer hover:bg-gray-50 transition-colors ${
-                      activeCategory === cat.name ? 'ring-2 ring-green-500 border-green-500' : 'border-gray-100'
-                    }`}
-                  >
+                  <div key={cat.name} onClick={() => handleCategoryClick(cat.name)} className={`bg-white rounded-lg p-2 text-center shadow-sm border cursor-pointer hover:bg-gray-50 transition-colors ${activeCategory === cat.name ? 'ring-2 ring-green-500 border-green-500' : 'border-gray-100'}`}>
                     <div className="flex justify-center text-lg md:text-xl">{cat.icon}</div>
                     <p className="text-[10px] md:text-xs font-medium text-gray-700 mt-0.5 md:mt-1">{cat.name}</p>
                   </div>
@@ -184,16 +163,12 @@ function Home() {
             </div>
           </div>
 
-          <div className="hidden md:block w-80">
+          <div className="md:w-80 mt-6 md:mt-0">
             <div className="mb-6">
               <h2 className="font-semibold text-gray-800 text-base mb-3">Quick Add - {activeCategory}</h2>
               <div className="grid grid-cols-2 gap-2">
                 {currentIngredients.slice(0, 6).map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => addToBasket(item)}
-                    className="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100 flex items-center justify-between px-2"
-                  >
+                  <button key={item} onClick={() => addToBasket(item)} className="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100 flex items-center justify-between px-2">
                     <span className="text-xs text-gray-700">{item}</span>
                     <FaPlus className="text-green-600 text-xs" />
                   </button>
@@ -229,11 +204,7 @@ function Home() {
             <h2 className="font-semibold text-gray-800 text-sm mb-2">Quick Add - {activeCategory}</h2>
             <div className="grid grid-cols-2 gap-2">
               {currentIngredients.slice(0, 6).map((item) => (
-                <button
-                  key={item}
-                  onClick={() => addToBasket(item)}
-                  className="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100 flex items-center justify-between px-3"
-                >
+                <button key={item} onClick={() => addToBasket(item)} className="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100 flex items-center justify-between px-3">
                   <span className="text-sm text-gray-700">{item}</span>
                   <FaPlus className="text-green-600 text-xs" />
                 </button>
