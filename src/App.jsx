@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { authClient } from './auth';
-import AuthForm from './components/AuthForm';
-import UserProfile from './components/UserProfile';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -16,43 +14,28 @@ import ShoppingList from './pages/ShoppingList';
 import Profile from './pages/Profile';
 
 function App() {
-  const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const initAuth = async () => {
-      const result = await authClient.getSession();
-      setSession(result);
-      setUser(result?.user);
-      setLoading(false);
-    };
-    initAuth();
-  }, []);
-
-  if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
-
-  if (!session) {
-    return <AuthForm />;
-  }
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/check-ingredients" element={<CheckIngredients />} />
-        <Route path="/recommendations" element={<Recommendations />} />
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
-        <Route path="/meal-plan" element={<MealPlan />} />
-        <Route path="/shopping-list" element={<ShoppingList />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path='/' element={<Landing />} />
+          <Route path='/signin' element={<SignIn />} />
+          <Route path='/signup' element={<SignUp />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path='/home' element={<Home />} />
+            <Route path='/check-ingredients' element={<CheckIngredients />} />
+            <Route path='/recommendations' element={<Recommendations />} />
+            <Route path='/recipe/:id' element={<RecipeDetail />} />
+            <Route path='/meal-plan' element={<MealPlan />} />
+            <Route path='/shopping-list' element={<ShoppingList />} />
+            <Route path='/profile' element={<Profile />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
