@@ -12,6 +12,8 @@ import Recommendations from './pages/Recommendations';
 import RecipeDetail from './pages/RecipeDetail';
 import MealPlan from './pages/MealPlan';
 import './App.css';
+import ShoppingList from './pages/ShoppingList';
+import Profile from './pages/Profile';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -47,6 +49,8 @@ function App() {
         <Route path="/recommendations" element={<Recommendations />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
         <Route path="/meal-plan" element={<MealPlan />} />
+        <Route path="/shopping-list" element={<ShoppingList />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
