@@ -12,8 +12,10 @@ export const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       try {
         const result = await authClient.getSession();
-        setSession(result);
-        setUser(result?.user);
+        if (result.data?.session && result.data?.user) {
+          setSession(result.data.session);
+          setUser(result.data.user);
+        }
       } catch (error) {
         console.error('Auth initialization failed:', error);
       } finally {
@@ -23,8 +25,34 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, []);
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: 'google',
+        callbackURL: '/home',
+      });
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    setSession(null);
+    setUser(null);
+  };
+
   const UserContextValue = useMemo(() => {
-    return { user, session, loading };
+    return {
+      user,
+      session,
+      loading,
+      handleSignOut,
+      handleGoogleSignIn,
+      setUser,
+      setSession,
+      setLoading,
+    };
   }, [user, session, loading]);
 
   return (
