@@ -23,7 +23,6 @@ function RecipeDetail() {
           requireToken: true,
         });
 
-        console.log(result);
         setRecipe(result.data);
       } catch (error) {
         console.error('Fetch failed:', error);
