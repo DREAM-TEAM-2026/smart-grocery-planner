@@ -18,8 +18,6 @@ export const apiFetch = async (path, options = {}) => {
     const { data, error } = await authClient.token();
     if (error) throw error;
 
-    console.log(data.session.token);
-
     if (data?.session?.token) {
       headers['Authorization'] = `Bearer ${data.session.token}`;
     }
