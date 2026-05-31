@@ -1,25 +1,40 @@
 import { authClient } from '../auth';
 
-export const apiFetch = async (endpoint, options = {}) => {
-  const { data, error } = await authClient.token();
+export const apiFetch = async (path, options = {}) => {
+  const {
+    requireToken = false,
+    requireTimezone = false,
+    ...fetchOptions
+  } = options;
 
-  console.log(data, error);
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   const headers = {
     'Content-Type': 'application/json',
-    ...(options.headers || {}),
+    ...(fetchOptions.headers || {}),
   };
 
-  // if (token) {
-  //   headers['Authorization'] = `Bearer ${token}`;
-  // }
+  if (requireToken) {
+    const { data, error } = await authClient.token();
+    if (error) throw error;
+
+    console.log(data.session.token);
+
+    if (data?.session?.token) {
+      headers['Authorization'] = `Bearer ${data.session.token}`;
+    }
+  }
+
+  if (requireTimezone) {
+    headers['x-timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
 
   const config = {
-    ...options,
+    ...fetchOptions,
     headers,
   };
 
-  const response = await fetch(endpoint, config);
+  const response = await fetch(`${baseUrl}/${path}`, config);
 
   if (!response.ok) {
     if (response.status === 401) {
@@ -27,6 +42,13 @@ export const apiFetch = async (endpoint, options = {}) => {
     }
     const errorDetails = await response.text();
     throw new Error(`API call failed: ${response.status} - ${errorDetails}`);
+  }
+
+  if (
+    response.status === 204 ||
+    response.headers.get('content-length') === '0'
+  ) {
+    return null;
   }
 
   return response.json();
