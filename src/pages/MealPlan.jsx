@@ -55,7 +55,7 @@ export default function MealPlan() {
   const handleProceedToReplace = () => {
     const slotsArray = Object.values(selectedSlots);
     localStorage.setItem('pendingMealSwaps', JSON.stringify(slotsArray));
-    navigate('/recommendations', { state: { selectedSlots: slotsArray } });
+    navigate('/recommendations');
   };
 
   const selectionCount = Object.keys(selectedSlots).length;
