@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomNav from '../components/BottomNav';
 import useLocalStorage from '../hooks/useLocalStorage.jsx';
-import { ingredientsByCategory, categories } from '../constant/HomeData.jsx';
+import { ingredientsByCategory, categories } from '../constants/HomeData.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 import {useTodayMeals} from "../hooks/useTodayMeals.jsx";
 import TodayMealSection from "../components/TodayMealSelection.jsx";
