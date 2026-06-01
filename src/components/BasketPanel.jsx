@@ -4,13 +4,11 @@ function BasketPanel({
                          basket,
                          inputIngredient,
                          inputMinCalories,
-                         inputMaxCalories,
                          setInputIngredient,
                          setInputMinCalories,
-                         setInputMaxCalories,
                          onAddInputIngredient,
                          onRemoveIngredient,
-                         onNext,
+                         onGenerate,
                      }) {
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -30,20 +28,6 @@ function BasketPanel({
                     onChange={(event) => setInputMinCalories(event.target.value)}
                     type='number'
                     placeholder='e.g., 1000'
-                    className='w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500'
-                />
-            </div>
-
-            <div className='mb-2'>
-                <label className='font-semibold text-gray-800 text-sm'>
-                    Max Calories
-                </label>
-                <input
-                    min='0'
-                    value={inputMaxCalories}
-                    onChange={(event) => setInputMaxCalories(event.target.value)}
-                    type='number'
-                    placeholder='e.g., 2000'
                     className='w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500'
                 />
             </div>
@@ -99,10 +83,10 @@ function BasketPanel({
                     </div>
 
                     <button
-                        onClick={onNext}
+                        onClick={onGenerate}
                         className='w-full bg-green-700 text-white py-2 rounded-lg text-sm font-semibold'
                     >
-                        Next →
+                        Generate Meal Plan →
                     </button>
                 </div>
             )}
