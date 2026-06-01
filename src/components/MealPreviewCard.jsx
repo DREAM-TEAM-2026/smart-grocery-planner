@@ -1,8 +1,15 @@
 import { FaEgg, FaSun, FaMoon } from 'react-icons/fa';
+import {useNavigate} from "react-router-dom";
 
 function MealPreviewCard({ mealType, meal, isActiveSlot = false }) {
     const IconComponent =
         mealType === 'breakfast' ? FaEgg : mealType === 'lunch' ? FaSun : FaMoon;
+
+    const navigate = useNavigate();
+
+    const handleClick = (id) => {
+        navigate(`/recipe/${id}`)
+    }
 
     const baseStyle = 'rounded-xl p-4 transition-all relative border-2 ';
 
@@ -37,8 +44,8 @@ function MealPreviewCard({ mealType, meal, isActiveSlot = false }) {
     }
 
     return (
-        <div className={cardStyle}>
-            <div className='flex items-center gap-2 mb-3'>
+        <div className={cardStyle} onClick={() => handleClick(meal.id)}>
+            <div className='flex items-center gap-2 mb-3' >
                 <IconComponent
                     className={`text-sm ${
                         isActiveSlot ? 'text-green-700' : 'text-gray-400'
