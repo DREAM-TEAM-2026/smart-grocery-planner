@@ -27,6 +27,7 @@ export default function MealPlan() {
     const interval = setInterval(() => {
       setCurrentActiveMeal(calculateActiveMeal());
     }, 60000);
+    localStorage.removeItem('pendingMealSwaps');
     return () => clearInterval(interval);
   }, []);
 
