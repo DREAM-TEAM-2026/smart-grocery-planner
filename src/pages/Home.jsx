@@ -8,6 +8,8 @@ import {useTodayMeals} from "../hooks/useTodayMeals.jsx";
 import TodayMealSection from "../components/TodayMealSelection.jsx";
 import QuickAddIngredients from "../components/QuickAddIngredients.jsx";
 import BasketPanel from "../components/BasketPanel.jsx";
+import {apiFetch} from "../utils/api.js";
+import GenerateMealPlanConfirmModal from "../components/GenerateMealPlanConfirmModal.jsx";
 
 
 function Home() {
@@ -20,7 +22,9 @@ function Home() {
 
   const [inputIngredient, setInputIngredient] = useState('');
   const [inputMinCalories, setInputMinCalories] = useState();
-  const [inputMaxCalories, setInputMaxCalories] = useState();
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isPreparingGenerate, setIsPreparingGenerate] = useState(false);
 
   const { mealsByTime, isLoading, errorMessage } = useTodayMeals();
 
@@ -42,14 +46,41 @@ function Home() {
     setBasket((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleNext = () => {
-    if (basket.length === 0) return;
+  const handleGenerate = () => {
+    if (!inputMinCalories || Number(inputMinCalories) <= 0) {
+      alert('Please enter a valid minimum calories value.');
+      return;
+    }
 
-    localStorage.setItem('maxCalories', inputMaxCalories);
-    localStorage.setItem('minCalories', inputMinCalories);
-    navigate('/check-ingredients');
+    if (basket.length === 0) {
+      alert('Please add at least one ingredient to your basket.');
+      return;
+    }
+
+    setIsConfirmModalOpen(true);
   };
 
+  const handleConfirmGenerate = async () => {
+    setIsPreparingGenerate(true);
+
+    try {
+      localStorage.setItem('minCalories', String(inputMinCalories));
+      localStorage.setItem('ingredients', JSON.stringify(basket));
+
+      await apiFetch('calendar/future', {
+        method: 'DELETE',
+        requireToken: true,
+      });
+
+      setIsConfirmModalOpen(false);
+      navigate('/generate-meal-plan');
+    } catch (error) {
+      console.error('Failed to delete future meal plans:', error);
+      alert('Failed to prepare meal plan generation. Please try again.');
+    } finally {
+      setIsPreparingGenerate(false);
+    }
+  };
   return (
     <div className='min-h-screen bg-gray-50 pt-16 md:pt-20'>
       <div className='max-w-md md:max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 pb-20'>
@@ -89,14 +120,20 @@ function Home() {
               basket={basket}
               inputIngredient={inputIngredient}
               inputMinCalories={inputMinCalories}
-              inputMaxCalories={inputMaxCalories}
               setInputIngredient={setInputIngredient}
               setInputMinCalories={setInputMinCalories}
-              setInputMaxCalories={setInputMaxCalories}
               onAddInputIngredient={addInputToBasket}
               onRemoveIngredient={removeFromBasket}
-              onNext={handleNext}
+              onGenerate={handleGenerate}
           />
+
+          <GenerateMealPlanConfirmModal
+              isOpen={isConfirmModalOpen}
+              isLoading={isPreparingGenerate}
+              onClose={() => setIsConfirmModalOpen(false)}
+              onConfirm={handleConfirmGenerate}
+          />
+
         </div>
       </div>
       <BottomNav />
