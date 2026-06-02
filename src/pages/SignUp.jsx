@@ -1,22 +1,39 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
+import {AuthContext} from "../context/AuthContext.jsx";
+import {authClient} from "../auth.js";
 
 function SignUp() {
+  const { setUser, setSession, handleGoogleSignIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Password dan Confirm Password tidak cocok!');
+
+    if(password !== confirmPassword) return alert(
+      "Passwords don't match"
+    )
+
+    const result = await authClient.signUp.email({ name, email, password })
+
+    if (result.error) {
+      alert(result.error.message);
       return;
     }
-    // Nanti diintegrasikan dengan backend
-    console.log('Sign Up:', { name, email, password });
+
+    const sessionResult = await authClient.getSession();
+
+    if (sessionResult.data?.session && sessionResult.data?.user) {
+      setSession(sessionResult.data.session);
+      setUser(sessionResult.data.user);
+    }
+
     navigate('/signin');
   };
 
@@ -34,7 +51,7 @@ function SignUp() {
           Smart Grocery Planner
         </h1>
 
-        {/* Form Sign Up */}
+        {/* Form Sign-Up */}
         <form onSubmit={handleSignUp}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-medium mb-1">Name</label>
@@ -100,10 +117,7 @@ function SignUp() {
         </div>
 
         {/* Social Sign Up */}
-        <div className="flex gap-3 mb-6">
-          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700">
-            <FaFacebook /> Facebook
-          </button>
+        <div className="flex gap-3 mb-6" onClick={() => handleGoogleSignIn()}>
           <button className="flex-1 bg-red-500 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-red-600">
             <FaGoogle /> Google
           </button>
