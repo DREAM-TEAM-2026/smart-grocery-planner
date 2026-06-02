@@ -20,7 +20,7 @@ function BasketPanel({
         <div className='md:w-80 mt-6 md:mt-0'>
             <div className='mb-2'>
                 <label className='font-semibold text-gray-800 text-sm'>
-                    Minimum Calories
+                    Minimum Calories Per Day
                 </label>
                 <input
                     min='0'
