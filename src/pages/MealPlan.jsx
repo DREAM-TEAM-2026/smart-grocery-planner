@@ -20,15 +20,11 @@ export default function MealPlan() {
   const navigate = useNavigate();
 
   const [selectedSlots, setSelectedSlots] = useState({});
-  const [currentActiveMeal, setCurrentActiveMeal] =
+  const [currentActiveMeal] =
     useState(calculateActiveMeal);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentActiveMeal(calculateActiveMeal());
-    }, 60000);
     localStorage.removeItem('pendingMealSwaps');
-    return () => clearInterval(interval);
   }, []);
 
   const handleCardClick = useCallback(

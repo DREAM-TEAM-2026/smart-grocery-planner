@@ -10,6 +10,7 @@ import QuickAddIngredients from "../components/QuickAddIngredients.jsx";
 import BasketPanel from "../components/BasketPanel.jsx";
 import {apiFetch} from "../utils/api.js";
 import GenerateMealPlanConfirmModal from "../components/GenerateMealPlanConfirmModal.jsx";
+import {calculateActiveMeal} from "../utils/mealPlanUtils.js";
 
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
   const navigate = useNavigate();
 
   const [basket, setBasket] = useLocalStorage('ingredients', []);
-  const [activeMealTab, setActiveMealTab] = useState('lunch');
+  const [activeMealTab, setActiveMealTab] = useState(calculateActiveMeal);
   const [activeCategory, setActiveCategory] = useState('Veggies');
 
   const [inputIngredient, setInputIngredient] = useState('');
