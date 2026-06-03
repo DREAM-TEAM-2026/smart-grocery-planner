@@ -39,9 +39,8 @@ function GenerateMealPlanConfirmModal({
 
           <div className='mt-4 rounded-xl bg-red-50 border border-red-100 p-3'>
             <p className='text-red-800 text-sm font-medium'>
-              Generating a new meal plan will delete all meal plans in the future,
-              starting from tomorrow onward.
-
+              Generating a new meal plan will delete meal plans,
+              starting from today onward.
             </p>
           </div>
 
