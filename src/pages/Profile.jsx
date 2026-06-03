@@ -30,7 +30,8 @@ function Profile() {
       <div className='max-w-7xl mx-auto px-4 md:px-6 py-6 pb-32'>
         <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center'>
           <div className='w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4'>
-            <FaUserCircle className='text-6xl text-green-700' />
+              {user.image? <img src={user.image} alt={user.name} className='w-full h-full object-cover rounded-full'/>
+                  : <FaUserCircle className='text-6xl text-green-700' />}
           </div>
           <h2 className='text-xl font-bold text-gray-800'>{user.name}</h2>
           <p className='text-gray-500 text-sm'>{user.email}</p>
