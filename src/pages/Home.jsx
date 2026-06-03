@@ -70,6 +70,7 @@ function Home() {
       await apiFetch('calendar/future', {
         method: 'DELETE',
         requireToken: true,
+        requireTimezone: true,
       });
 
       setIsConfirmModalOpen(false);

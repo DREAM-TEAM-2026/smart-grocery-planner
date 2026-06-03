@@ -44,6 +44,7 @@ function GenerateMealPlan() {
         const response = await apiFetch('calendar/generate', {
           method: 'POST',
           requireToken: true,
+          requireTimezone: true,
           body: JSON.stringify({
             min_calories_per_day: Number(minCalories),
             ingredients,
@@ -85,6 +86,7 @@ function GenerateMealPlan() {
       await apiFetch('calendar', {
         method: 'POST',
         requireToken: true,
+        requireTimezone: true,
         body: JSON.stringify(generatedMeals),
       });
 

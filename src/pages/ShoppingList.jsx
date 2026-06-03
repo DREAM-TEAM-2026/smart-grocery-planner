@@ -28,6 +28,7 @@ function ShoppingList() {
         const response = await apiFetch('shopping-cart', {
           method: 'GET',
           requireToken: true,
+          requireTimezone: true,
         });
 
         if (!ignore && response?.data) {
@@ -62,6 +63,7 @@ function ShoppingList() {
       await apiFetch('shopping-cart/generate', {
         method: 'POST',
         requireToken: true,
+        requireTimezone: true,
         body: JSON.stringify({ days: Number(days) }),
       });
       // Re-fetch the newly generated cart by triggering the effect
