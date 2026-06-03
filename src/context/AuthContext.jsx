@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       await authClient.signIn.social({
         provider: 'google',
         callbackURL: '/home',
+        newUserCallbackURL: "/home",
       });
     } catch (error) {
       console.error('Google sign-in error:', error);
