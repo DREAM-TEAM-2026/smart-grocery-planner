@@ -1,9 +1,14 @@
-# FRONTEND
 
-Frontend aplikasi rekomendasi resep dan meal plan berbasis bahan makanan yang dimiliki pengguna. Project ini menyediakan antarmuka pengguna untuk autentikasi, pengecekan bahan, rekomendasi resep, pembuatan meal plan, daftar belanja, dan profil pengguna.
+<h1 align="center" >Smart Grocery Planner</h1>
+
+---
+Aplikasi rekomendasi resep dan meal plan berbasis bahan makanan yang dimiliki pengguna. Project ini menyediakan antarmuka pengguna untuk autentikasi, pengecekan bahan, rekomendasi resep, pembuatan meal plan, daftar belanja, dan profil pengguna.
+
+Website: [Smart Grocery Planner](https://grocery-planner-dt.netlify.app/)
 
 ## Daftar Isi
 
+---
 - [1. Deskripsi Singkat Proyek](#1-deskripsi-singkat-proyek)
 - [2. Arsitektur Frontend](#2-arsitektur-frontend)
 - [3. Fitur Utama](#3-fitur-utama)
@@ -16,6 +21,7 @@ Frontend aplikasi rekomendasi resep dan meal plan berbasis bahan makanan yang di
 
 ## 1. Deskripsi Singkat Proyek
 
+---
 Project ini merupakan aplikasi frontend yang dibangun menggunakan React dan Vite. Aplikasi ini berfungsi sebagai antarmuka pengguna untuk sistem rekomendasi resep dan penyusunan meal plan.
 
 Melalui aplikasi ini, pengguna dapat melakukan autentikasi, mengelola bahan makanan, melihat rekomendasi resep, membuat rencana makan mingguan, melihat detail resep, serta membuat daftar belanja berdasarkan kebutuhan meal plan.
@@ -24,6 +30,7 @@ Fokus utama frontend adalah memberikan pengalaman pengguna yang sederhana, respo
 
 ## 2. Arsitektur Frontend
 
+---
 Alur kerja umum aplikasi:
 
 1. Pengguna membuka aplikasi melalui halaman landing.
@@ -36,6 +43,7 @@ Alur kerja umum aplikasi:
 
 ## 3. Fitur Utama
 
+---
 Fitur utama aplikasi frontend:
 
 - Meal plan mingguan.
@@ -57,11 +65,13 @@ K --> L[Rekomendasi Resep]
 
 ## 4. Setup Environment
 
+---
 Pastikan Node.js dan npm sudah terpasang pada perangkat.
 
 ### Clone repository
 ```bash
-git clone <URL_REPOSITORY> cd <NAMA_FOLDER_PROJECT>
+git clone <URL_REPOSITORY> 
+cd <NAMA_FOLDER_PROJECT>
 ```
 
 ### Instalasi dependencies
@@ -72,12 +82,13 @@ npm install
 
 ## 5. Cara Menjalankan Aplikasi
 
+---
 Jalankan aplikasi pada mode development menggunakan perintah berikut:
 ```bash
 npm run dev
 ```
 
-Setelah server berjalan, buka URL yang muncul di terminal, biasanya:
+Setelah server berjalan, buka URL yang muncul di terminal, contohnya:
 ```bash
 http://localhost:3000/
 ```
@@ -85,6 +96,7 @@ http://localhost:3000/
 
 ## 6. Environment Variables
 
+---
 Project ini menggunakan environment variables untuk konfigurasi URL autentikasi dan backend API.
 
 Buat file `.env` di root project, lalu isi konfigurasi berikut:
@@ -107,6 +119,7 @@ Contoh file environment tersedia pada:
 
 ## 7. Struktur Proyek
 
+---
 ```text
 public/ # file statis frontend,
 src/ 
@@ -121,6 +134,7 @@ src/
 
 ## 8. Build dan Preview
 
+---
 Untuk membuat production build:
 ```bash
 npm run build
@@ -138,6 +152,7 @@ npm run preview
 
 ## 9. Teknologi yang Digunakan
 
+---
 - React
 - Vite
 - React Router
