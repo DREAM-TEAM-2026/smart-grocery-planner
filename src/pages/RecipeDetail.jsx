@@ -57,7 +57,7 @@ function RecipeDetail() {
           onClick={() => navigate(-1)}
           className='mb-6 text-gray-600 font-semibold flex items-center gap-1 text-sm hover:text-green-700'
         >
-          <FaArrowLeft className='text-sm' /> Back to results
+          <FaArrowLeft className='text-sm' /> Back
         </button>
 
         <div className='md:flex md:gap-8'>
